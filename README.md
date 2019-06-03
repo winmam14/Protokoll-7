@@ -35,7 +35,10 @@ Im Unterricht verwenden wir den Arduino Nano welcher mit einem ATmega328p ausges
 
 ## 2. Programmiervorlage
 
-Im unterricht verwenden wir eine Programmiervorlge in der alle grundlegenden Funktionen eingebaut sind die in den meisten Programmen benötigt werden. Doch falls einmal weniger funkktionen benötigt werden, zum Beispiel für kleine Übungsprogramme, gibt es verschiedene Kategorien von Programmiervorlagen (Level 1-Level 4). Je höher das Level desto mehr Funktionen wurden vom Entwickler implementiert.  Weniger Quelltext bedeutet schnellerer upload in den Speicher des µC sowie geringerer Platzbedarf im Speicher.  
+Im unterricht verwenden wir eine **Programmiervorlge** in der alle grundlegenden Funktionen eingebaut sind die in den meisten Programmen benötigt werden. Doch falls einmal weniger Funktionen benötigt werden, zum Beispiel für kleinere Übungsprogramme, gibt es verschiedene Kategorien von Programmiervorlagen (Level 1-Level 4). Je höher das Level desto mehr Funktionen wurden vom Entwickler implementiert.  Weniger **Quelltext** bedeutet **schnellerer upload** in den Speicher des µC sowie **geringerer Platzbedarf** im Speicher.    
+  
+  ***Übersicht AIIT-Programmiervorage, Level 1-4:***  
+  
 
 |  Programmiervorlage  |  Inhalt  |
 |------------------------|--------------------|
@@ -44,7 +47,7 @@ Im unterricht verwenden wir eine Programmiervorlge in der alle grundlegenden Fun
 |Level 3 |Level 2, Tasks |
 |Level 4 |level 3, Debug möglichkeiten |
 
-## 3.Aufgabenstellung
+## 3. Aufgabenstellung
 In dieser Einheit war das Ziel einen Temperatursensor, welcher am Microcontroller verbaut ist, aus zu lesen und auf der Konsole auszugeben. Hierfür gibt es mehrere Lösungsansätze. Als erstes mussten wir entscheiden wie die Verbindung zwischen Microcontroller und Teminal aufgebaut wird.  
   Wir haben uns für eine Kabelgebundene Übertragung entschieden. Somit wussten wir, dass wir über einen **UART/USB** konverter, welcher am Arduino Nano bereits verbaut ist, die verbindung über USB mit dem PC herstellen müssen. Danach haben wir uns dazu entschieden **Modbus-ASCII** als Komunikationsprotokoll festzulegen. Anschießend konnten wir das benötigte Programm dafür schreiben.  
   Die Temperaturwerte werden als **16Bit Werte** übertragen. Weiters werden die werte in **Festkommacodierung** übertragen somit sind **links** und **rechts** vom Komma 8 Bit. Um nun vom Temperaturwert z.B 23,5°C zum **Hexwert** zu kommen muss man den wert zuerst mit 256 Multiplizieren und danach in eine **Hexadezimalzahl** umwandeln -> 23,5 * 256 = 6016 => 1780hex  
