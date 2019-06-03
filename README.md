@@ -12,7 +12,7 @@
 
 ### 1. Temperatursensor am µC
 ### 2. Programmiervorlage
-### 3. Programm zur Auswertung vom Temperatursensor
+### 3. Quelltextzeilen zur Auswertung vom Temperatursensor
 
 
 --- 
@@ -24,8 +24,11 @@
 
 
 
+## 3. Quelltextzeilen zur Auswertung vom Temperatursensor
+Im nächsten Punkt werden einige wichtige Zeilen aus dem Quelltext zur **Auswertung vom Temperatursensor** gezeigt. Wichtig dabei ist, dass wir eine **Programmiervorlage** verwendet haben! Somit war die Programmierung unkomplizierter, da die grundlegenden Teile eines Programms schon vorhanden waren. Für uns waren nur die Dateien: **app.c**, **app.h**, **sys.c** von Interesse, welche auch in den Punkten 3.1; 3.2 sowie 3.3 genauer erklärt werden.
 
 
+### 3.1 app.c
 ```c
   {
     memset((void *)&app, 0, sizeof(app));
@@ -80,3 +83,62 @@
 Die Referenzspannung für den Analog-Digital-Wandler kann durch die Bits **REFS1** und **REFS0** im **ADMUX**-Register ausgewählt werden, die Referenzspannung liegt dann auch am **AVCC Pin** an. Möglich sind **VCC** oder die interne Referenzspannung von **2,56V**.  
   
   Der Analog-Digital-Wandler erzeugt ein 10-bit Ergebnis, das in den ADC Data Registern **ADCH und ADCL** abgelegt wird. Normalerweise wird das Ergebnis rechtsbündig in den beiden Registern abgelegt, optional kann das Ergebnis aber auch linksbündig in **ADCH und ADCL** geschrieben werden. Die Einstellung erfolgt mit dem **ADLAR**-Bit im **ADMUX**-Register.
+  
+  
+  
+  
+ ### 3.2 app.h    
+       
+```c
+struct Modbus // Struktur um alle Komponenten
+{
+    char frame[16];
+    int8_t frameIndex;
+    uint16_t frameError;
+    uint16_t errCnt;
+};
+
+struct App
+{
+    uint8_t adch;
+    struct Modbus modbus;
+};
+```
+
+### 3.3 sys.c
+
+```c
+ISR (SYS_UART_RECEIVE_VECTOR)
+{
+
+
+static uint8_t lastChar;
+
+
+uint8_t c = SYS_UDR;
+
+
+if (c=='R' && lastChar=='@')
+
+
+{
+
+
+wdt_enable(WDTO_15MS);
+
+
+wdt_reset();
+
+
+while(1) {};
+
+
+}
+
+
+lastChar = c;
+
+
+app_handleUartByte(c);
+
+```
