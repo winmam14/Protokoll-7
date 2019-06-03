@@ -1,8 +1,8 @@
 # Protokoll-7  
 ## Thema: Temperatursensor Auswertung
 **Professor:** SX  
-**Übungsdatum:** 02.04.2019
-**Author, KNr.:** Winter Matthias, 17  
+**Übungsdatum:** 02.04.2019  
+**Author, KNr.:** Winter Matthias, 17    
 **Anwesend:** Alois Vollmaier, Patrick Wegl, Winter Matthias, Winter Thomas  
 **Abwesend:** Sarah Vezonik, Mercedes Wesonig  
 
