@@ -33,6 +33,16 @@ Im Unterricht verwenden wir den Arduino Nano welcher mit einem ATmega328p ausges
 **ATmega328P :** Ja  
 **ATmega2560 (Arduino Mega 2560) :** Nein  
 
+## 2. Programmiervorlage
+
+Im unterricht verwenden wir eine Programmiervorlge in der alle grundlegenden Funktionen eingebaut sind die in den meisten Programmen benötigt werden. Doch falls einmal weniger funkktionen benötigt werden, zum Beispiel für kleine Übungsprogramme, gibt es verschiedene Kategorien von Programmiervorlagen (Level 1-Level 4). Je höher das Level desto mehr Funktionen wurden vom Entwickler implementiert.  Weniger Quelltext bedeutet schnellerer upload in den Speicher des µC sowie geringerer Platzbedarf im Speicher.  
+
+|  Programmiervorlage  |  Inhalt  |
+|------------------------|--------------------|
+|Level 1 |keine Inhalte, empty |
+|Level 2 |Komunikation über UART  |
+|Level 3 |Level 2, Tasks |
+|Level 4 |level 3, Debug möglichkeiten |
 
 ## 3.Aufgabenstellung
 In dieser Einheit war das Ziel einen Temperatursensor, welcher am Microcontroller verbaut ist, aus zu lesen und auf der Konsole auszugeben. Hierfür gibt es mehrere Lösungsansätze. Als erstes mussten wir entscheiden wie die Verbindung zwischen Microcontroller und Teminal aufgebaut wird.  
