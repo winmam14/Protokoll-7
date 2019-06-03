@@ -105,6 +105,15 @@ struct App
 };
 ```
 
+In der Headerdatei werden Structuren deklariert die für unser Programm notwendig sind um unser Programm möglichst übersichtlich zu machen! In der Struktur **Modbus** sieht man die Variablendeklaration: **uint16_t errCnt**. Dies bedeutet, dass diese Variable einen **16-bit, vorzeichenlosen ganzzahligen Wert** annehmen kann. Diese Variable wird verwendet um aufgetretene Fehler mit zu zählen.  
+
+|  Variablenbezeichnung  |  Verwendungszweck  |
+|------------------------|--------------------|
+|char frame[16]          |Temperaturwert welcher zur übertragung mit dem Modbusprotokoll geeignet ist (Frame)  |
+|int8_t frameIndex       |eine Stelle vom Frame  |
+|uint16_t frameError     |Fehler-Frame|
+|uint16_t errCnt         |um aufgetretene Fehler mit zu zählen  |
+
 ### 3.3 sys.c
 
 ```c
