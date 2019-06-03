@@ -12,23 +12,49 @@
 
 ### 1. Temperatursensor am µC
 ### 2. Programmiervorlage
-### 3. Quelltextzeilen zur Auswertung vom Temperatursensor
+### 3. Aufgabenstellung
+### 4. Quelltextzeilen zur Auswertung vom Temperatursensor
+#### 4.1 app.c
+#### 4.2 app.h
 
 
 --- 
 
-## 1. 
+## 1. Temperatursensor am  µC
+Im Unterricht verwenden wir den Arduino Nano welcher mit einem ATmega328p ausgestattet ist. Dieser besitzt einen eingebauten Temperatursensor. Diesen haben wir versucht über Modbus-ASCII auszulesen.
+    
+  ***Beliebte **AVR-Chips**, die über einen internen Temperatursensor verfügen:***
+
+**ATmega8 :** Nein  
+**ATmega8L :** Nein  
+**ATmega8A :** Nein  
+**ATmega168 :** Nein  
+**ATmega168A :** Ja  
+**ATmega168P :** Ja  
+**ATmega328 :** Ja  
+**ATmega328P :** Ja  
+**ATmega1280 (Arduino Mega) :** Nein  
+**ATmega2560 (Arduino Mega 2560) :** Nein  
+**ATmega32U4 (Arduino Leonardo) :** Ja  
 
 
 
 
 
 
-## 3. Quelltextzeilen zur Auswertung vom Temperatursensor
-Im nächsten Punkt werden einige wichtige Zeilen aus dem Quelltext zur **Auswertung vom Temperatursensor** gezeigt. Wichtig dabei ist, dass wir eine **Programmiervorlage** verwendet haben! Somit war die Programmierung unkomplizierter, da die grundlegenden Teile eines Programms schon vorhanden waren. Für uns waren nur die Dateien: **app.c**, **app.h**, **sys.c** von Interesse, welche auch in den Punkten 3.1; 3.2 sowie 3.3 genauer erklärt werden.
+## 3.Aufgabenstellung
+In dieser Einheit war das Ziel einen Temperatursensor, welcher am Microcontroller verbaut ist, aus zu lesen und auf der Konsole auszugeben. Hierfür gibt es mehrere Lösungsansätze. Als erstes mussten wir entscheiden wie die Verbindung zwischen Microcontroller und Teminal aufgebaut wird.  
+  Wir haben uns für eine Kabelgebundene Übertragung entschieden. Somit wussten wir, dass wir über einen **UART/USB** konverter, welcher am Arduino Nano bereits verbaut ist, die verbindung über USB mit dem PC herstellen müssen. Danach haben wir uns dazu entschieden **Modbus-ASCII** als Komunikationsprotokoll festzulegen. Anschießend konnten wir das benötigte Programm dafür schreiben.  
+  Die Temperaturwerte werden als **16Bit Werte** übertragen. Weiters werden die werte in **Festkommacodierung** übertragen somit sind **links** und **rechts** vom Komma 8 Bit. Um nun vom Temperaturwert z.B 23,5°C zum **Hexwert** zu kommen muss man den wert zuerst mit 256 Multiplizieren und danach in eine **Hexadezimalzahl** umwandeln -> 23,5 * 256 = 6016 => 1780hex  
+    
+   Nachdem wir dass Programm soweit Lauffähig hatten konnten wir es testen. Dort fiel auf dass **falsche** werte in der Konsole ausgegeben wurden. Dies war jedoch kein großes Problem, da der Fehler statisch war und wir ihn somit durch **einfaches Kallibrieren** beheben konnten.
 
 
-### 3.1 app.c
+## 4. Quelltextzeilen zur Auswertung vom Temperatursensor
+Im nächsten Punkt werden einige wichtige Zeilen aus dem Quelltext zur **Auswertung vom Temperatursensor** gezeigt. Wichtig dabei ist, dass wir eine **Programmiervorlage** verwendet haben! Somit war die Programmierung unkomplizierter, da die grundlegenden Teile eines Programms schon vorhanden waren. Für uns waren nur die Dateien: **app.c**, **app.h** von Interesse, welche auch in den Punkten 4.1 sowie 4.2 genauer erklärt werden.
+
+
+### 4.1 app.c
 ```c
   {
     memset((void *)&app, 0, sizeof(app));
@@ -87,7 +113,7 @@ Die Referenzspannung für den Analog-Digital-Wandler kann durch die Bits **REFS1
   
   
   
- ### 3.2 app.h    
+ ### 4.2 app.h    
        
 ```c
 struct Modbus // Struktur um alle Komponenten
@@ -114,40 +140,3 @@ In der Headerdatei werden Structuren deklariert die für unser Programm notwendi
 |uint16_t frameError     |Fehler-Frame|
 |uint16_t errCnt         |um aufgetretene Fehler mit zu zählen  |
 
-### 3.3 sys.c
-
-```c
-ISR (SYS_UART_RECEIVE_VECTOR)
-{
-
-
-static uint8_t lastChar;
-
-
-uint8_t c = SYS_UDR;
-
-
-if (c=='R' && lastChar=='@')
-
-
-{
-
-
-wdt_enable(WDTO_15MS);
-
-
-wdt_reset();
-
-
-while(1) {};
-
-
-}
-
-
-lastChar = c;
-
-
-app_handleUartByte(c);
-
-```
